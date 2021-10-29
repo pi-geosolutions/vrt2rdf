@@ -1,0 +1,4 @@
+.idea
+.venv
+*.gpkg-shm
+*.gpkg-wal

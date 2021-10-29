@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OGRVRTDataSource>
+  <OGRVRTLayer name="region">
+    <SrcDataSource relativeToVRT="1" shared="1">limites.gpkg</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT nom, insee_reg, 'Région' AS admin_type, 'REG_' AS skos_prefix, (SELECT group_concat(code) FROM departement) AS narrower_ids, 'DEP_' AS narrower_prefix, Envelope(Transform(geom,4326)) AS geom FROM "region"</SrcSql>
+    <SrcLayer>region</SrcLayer>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="insee_reg" width="5"/>
+    <Field name="name" type="String" src="nom" width="80"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+    <Field name="narrower_prefix" type="String" src="narrower_prefix" width="10"/>
+    <Field name="narrower_ids" type="String" src="narrower_ids" width="80"/>
+  </OGRVRTLayer>
+  <OGRVRTLayer name="departement">
+    <SrcDataSource relativeToVRT="1" shared="1">limites.gpkg</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT code, nom, 'Département' AS admin_type, 'DEP_' AS skos_prefix, '32' AS broader_ids, 'REG_' AS broader_prefix, Envelope(Transform(geom,4326)) AS geom FROM "departement"</SrcSql>
+    <SrcLayer>departement</SrcLayer>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="code"/>
+    <Field name="name" type="String" src="nom"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+    <Field name="broader_prefix" type="String" src="broader_prefix" width="10"/>
+    <Field name="broader_ids" type="String" src="broader_ids" width="80"/>
+  </OGRVRTLayer>
+  <OGRVRTLayer name="epci">
+    <SrcDataSource relativeToVRT="1" shared="1">limites.gpkg</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT code, nom_min, 'EPCI' AS admin_type, 'EPCI_' AS skos_prefix, Envelope(Transform(geom,4326)) AS geom FROM "epci"</SrcSql>
+    <SrcLayer>epci</SrcLayer>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="code"/>
+    <Field name="name" type="String" src="nom_min"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+  </OGRVRTLayer>
+  <OGRVRTLayer name="communes">
+    <SrcDataSource relativeToVRT="1" shared="1">limites.gpkg</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT code, nom_min, 'Commune' AS admin_type, 'COM_' AS skos_prefix, substr(code,1, 2) AS broader_ids, 'DEP_' AS broader_prefix, Envelope(Transform(geom,4326)) AS geom FROM "communes"</SrcSql>
+    <SrcLayer>communes</SrcLayer>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="code"/>
+    <Field name="name" type="String" src="nom_min"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+    <Field name="broader_prefix" type="String" src="broader_prefix" width="10"/>
+    <Field name="broader_ids" type="String" src="broader_ids" width="80"/>
+  </OGRVRTLayer>
+  <OGRVRTLayer name="pnr">
+    <SrcDataSource relativeToVRT="1" shared="1">limites.gpkg</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT id_mnhn, nom, 'PNR' AS admin_type, 'PNR_' AS skos_prefix, Envelope(Transform(geom,4326)) AS geom FROM "pnr"</SrcSql>
+    <SrcLayer>pnr</SrcLayer>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="id_mnhn" width="30"/>
+    <Field name="name" type="String" src="nom" width="254"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+  </OGRVRTLayer>
+  <OGRVRTLayer name="scot_en_cours">
+    <SrcDataSource relativeToVRT="1" shared="1">limites.gpkg</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT idurba, etiquetmin, 'SCOT en cours' AS admin_type, 'SCOT_' AS skos_prefix, Envelope(Transform(geom,4326)) AS geom FROM "scot_en_cours"</SrcSql>
+    <SrcLayer>scot_en_cours</SrcLayer>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="idurba"/>
+    <Field name="name" type="String" src="etiquetmin" width="254"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+  </OGRVRTLayer>
+  <OGRVRTLayer name="scot_approuves">
+    <SrcDataSource relativeToVRT="1" shared="1">limites.gpkg</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT idurba, etiquetmin, 'SCOT approuvé' AS admin_type, 'SCOT_' AS skos_prefix, Envelope(Transform(geom,4326)) AS geom FROM "scot_approuves"</SrcSql>
+    <SrcLayer>scot_approuves</SrcLayer>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="idurba"/>
+    <Field name="name" type="String" src="etiquetmin" width="254"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+  </OGRVRTLayer>
+</OGRVRTDataSource>

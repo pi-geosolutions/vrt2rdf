@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:fn="http://www.w3.org/2005/02/xpath-functions" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:gml="http://www.opengis.net/gml#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xdt="http://www.w3.org/2005/02/xpath-datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <skos:ConceptScheme rdf:about="https://www.geo2france.fr/catalogue/administrativeEntities">
+    <dc:title>Territoires</dc:title>
+    <dc:description>Mots clés de type géographique pour Geo2france.</dc:description>
+    <dc:creator>
+      <foaf:Organization>
+        <foaf:name>pi-Geosolutions</foaf:name>
+      </foaf:Organization>
+    </dc:creator>
+    <dc:rights>Licence Ouverte / Open Licence (https://www.etalab.gouv.fr/licence-ouverte-open-licence) - Based on ADMIN EXPRESS dataset from IGN (french mapping national agency):
+    http://professionnels.ign.fr/adminexpress.</dc:rights>
+    <dcterms:issued>2021-10-28</dcterms:issued>
+    <dcterms:modified>{{ date.strftime('%Y-%m-%d') }}</dcterms:modified>
+  </skos:ConceptScheme>
+
+  {% for feat in feats %}
+  <skos:Concept rdf:about="http://geonetwork-opensource.org/administrativeAreaFr#{{ feat.skos_prefix }}{{ feat.id }}">
+    <skos:prefLabel xml:lang="fr">{{ feat.name }} ({{ feat.admin_type }})</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">{{ feat.name }} ({{ feat.admin_type }})</skos:prefLabel>
+    <gml:BoundedBy>
+      <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
+        <gml:lowerCorner>{{ feat.minX }} {{ feat.minY }}</gml:lowerCorner>
+        <gml:upperCorner>{{ feat.maxX }} {{ feat.maxY }}</gml:upperCorner>
+      </gml:Envelope>
+    </gml:BoundedBy>
+{%- for b in feat.get_narrower_ids_as_list() %}
+    <skos:narrower rdf:resource="http://geonetwork-opensource.org/administrativeAreaFr#{{ feat.narrower_prefix }}{{ b }}" />
+{%- endfor %}
+{%- for b in feat.get_broader_ids_as_list() %}
+    <skos:broader rdf:resource="http://geonetwork-opensource.org/administrativeAreaFr#{{ feat.broader_prefix }}{{ b }}" />
+{%- endfor %}
+  </skos:Concept>
+  {% endfor %}
+</rdf:RDF>

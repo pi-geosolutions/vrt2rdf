@@ -1,0 +1,4 @@
+Jinja2>=3
+MarkupSafe>=2
+pkg_resources
+pygdal>=2.4
