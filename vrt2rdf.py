@@ -64,7 +64,7 @@ def main():
                         action='store_true')
     parser.add_argument('--logfile',
                         help='logfile path. Default: prints logs to the console')
-    parser.add_argument('--template',
+    parser.add_argument('-t', '--template',
                         help='template file path. Default: templates/territoires.rdf.j2')
     args = parser.parse_args()
 

@@ -16,8 +16,8 @@
 
   {% for feat in feats %}
   <skos:Concept rdf:about="http://geonetwork-opensource.org/administrativeAreaFr#{{ feat.skos_prefix }}{{ feat.id }}">
-    <skos:prefLabel xml:lang="fr">{{ feat.name }} ({{ feat.admin_type }})</skos:prefLabel>
-    <skos:prefLabel xml:lang="en">{{ feat.name }} ({{ feat.admin_type }})</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">{{ feat.name }} {%- if feat.admin_type %} ({{ feat.admin_type }}){%- endif %}</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">{{ feat.name }} {%- if feat.admin_type %} ({{ feat.admin_type }}){%- endif %}</skos:prefLabel>
     <gml:BoundedBy>
       <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
         <gml:lowerCorner>{{ feat.minX }} {{ feat.minY }}</gml:lowerCorner>
