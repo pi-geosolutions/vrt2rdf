@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:schema="http://schema.org/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+>
+
+  <skos:ConceptScheme rdf:about="https://data.naturefrance.fr/geonetwork/srv/api/registries/vocabularies/external.theme.pressref">
+    <dc:title>PRESSREF</dc:title>
+    <dc:description>Pressions sur la biodiversité</dc:description>
+    <dc:creator>
+      <foaf:Organization>
+        <foaf:name>OFB</foaf:name>
+      </foaf:Organization>
+    </dc:creator>
+    <dc:rights>Licence Ouverte / Open Licence (https://www.etalab.gouv.fr/licence-ouverte-open-licence) - Based on PRESSREF classifications by OFB https://mnhnfr-my.sharepoint.com/:x:/g/personal/chloe_vinet1_mnhn_fr/ESpqqL2e7X1Kv4p01c2umVcBXhVAB63DuvJy-kud9d9epg?rtime=g3LPjDNc20g</dc:rights>
+    <dcterms:issued>2023-06-20</dcterms:issued>
+    <dcterms:modified>{{ date.strftime('%Y-%m-%d') }}</dcterms:modified>
+  </skos:ConceptScheme>
+
+  {% for feat in feats %}
+  <skos:Concept rdf:about="http://geonetwork-opensource.org/PRESSREF#{{ feat.id }}">
+	  <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="fr">{{ feat.name }}</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">{{ feat.name }}</skos:prefLabel>
+	  <skos:scopeNote xml:lang="fr">{{ feat.description }}</skos:scopeNote>
+	  <skos:scopeNote xml:lang="en">{{ feat.description }}</skos:scopeNote>
+  </skos:Concept>
+  {% endfor %}
+</rdf:RDF>

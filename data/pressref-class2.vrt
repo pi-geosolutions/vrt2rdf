@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OGRVRTDataSource>
+  <OGRVRTLayer name="Feuille1">
+    <SrcDataSource relativeToVRT="1">pressref-class2.ods</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT * FROM 'Feuille1' WHERE "Field2" !=''</SrcSql>
+    <!-- <SrcLayer>Feuille1</SrcLayer> -->
+    <Field name="id" src="Field1" type="String" />
+    <Field name="name" src="Field2" type="String" />
+    <Field name="description" src="Field3" type="String" />
+  </OGRVRTLayer>
+</OGRVRTDataSource>
