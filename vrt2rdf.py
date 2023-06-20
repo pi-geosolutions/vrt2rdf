@@ -16,6 +16,7 @@ class SkosFeature():
         self.feature = ogr_feature
         self.id = self.get_field_or_null('id')
         self.name = self.get_field_or_null('name')
+        self.description = self.get_field_or_null('description')
         self.admin_type = self.get_field_or_null('admin_type')
         self.skos_prefix = self.get_field_or_null('skos_prefix')
         self.narrower_prefix = self.get_field_or_null('narrower_prefix')
