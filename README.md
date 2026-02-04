@@ -14,10 +14,10 @@ Create a virtual env and install the requirements
 
 You will need the gdal library. You will probably have to adjust the version in the requirements.txt file
 The simplest way:
-- install gdal and libgdal1-dev packages on your computer
-- install pygdal using
+- install gdal and libgdal-dev packages on your computer
+- install gdal using
      
-        pip install pygdal=="`gdal-config --version`.*"
+        pip install gdal=="`gdal-config --version`.*"
         
 ### Compatibility
 This code has been tested under python 3.7. It will probably work with an older version of python3, but with no garanties.
