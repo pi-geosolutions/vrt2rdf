@@ -76,4 +76,14 @@
     <Field name="admin_type" type="String" src="admin_type" width="20"/>
     <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
   </OGRVRTLayer>
+  <OGRVRTLayer name="pnr2">
+    <SrcDataSource>WFS:https://www.geo2france.fr/geoserver/spld/ows?request=GetCapabilities&service=WFS</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT id_mnhn, nom, 'PNR' AS admin_type, 'PNR_' AS skos_prefix, Envelope(Transform(geom,4326)) AS geom FROM "spld:pnr"</SrcSql>
+    <SrcLayer>spld:pnr</SrcLayer>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="id_mnhn" width="30"/>
+    <Field name="name" type="String" src="nom" width="254"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+  </OGRVRTLayer>
 </OGRVRTDataSource>

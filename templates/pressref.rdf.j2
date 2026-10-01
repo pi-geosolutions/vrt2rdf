@@ -9,25 +9,29 @@
 >
 
   <skos:ConceptScheme rdf:about="https://data.naturefrance.fr/geonetwork/srv/api/registries/vocabularies/external.theme.pressref">
-    <dc:title>PRESSREF</dc:title>
-    <dc:description>Pressions sur la biodiversité</dc:description>
+    <dc:title>Pressions exercées sur la biodiversité</dc:title>
+    <dc:title xml:lang="en">Pressures on biodiversity</dc:title>
+    <dc:title xml:lang="fr">Pressions exercées sur la biodiversité</dc:title>
+    <dc:description>Pressions exercées sur la biodiversité</dc:description>
+  	<dc:description xml:lang="en">Pressures on biodiversity, PressRef Classifications by OFB / Muséum d'histoire naturelle (MNHN)</dc:description>
+    <dc:description xml:lang="fr">Pressions exercées sur la biodiversité, classification PressRef réalisée par l'OFB / Muséum d'histoire naturelle (MNHN)</dc:description>
     <dc:creator>
       <foaf:Organization>
         <foaf:name>OFB</foaf:name>
       </foaf:Organization>
     </dc:creator>
-    <dc:rights>Licence Ouverte / Open Licence (https://www.etalab.gouv.fr/licence-ouverte-open-licence) - Based on PRESSREF classifications by OFB https://mnhnfr-my.sharepoint.com/:x:/g/personal/chloe_vinet1_mnhn_fr/ESpqqL2e7X1Kv4p01c2umVcBXhVAB63DuvJy-kud9d9epg?rtime=g3LPjDNc20g</dc:rights>
+    <dc:rights>Licence Ouverte / Open Licence (https://www.etalab.gouv.fr/licence-ouverte-open-licence) - Based on PressRef classifications by MNHN https://mnhnfr-my.sharepoint.com/:x:/g/personal/chloe_vinet1_mnhn_fr/ESpqqL2e7X1Kv4p01c2umVcBXhVAB63DuvJy-kud9d9epg?rtime=g3LPjDNc20g</dc:rights>
     <dcterms:issued>2023-06-20</dcterms:issued>
     <dcterms:modified>{{ date.strftime('%Y-%m-%d') }}</dcterms:modified>
   </skos:ConceptScheme>
 
   {% for feat in feats %}
-  <skos:Concept rdf:about="http://geonetwork-opensource.org/PRESSREF#{{ feat.id }}">
+  <skos:Concept rdf:about="https://data.naturefrance.fr/static/thesauri/PressRef#{{ feat.id }}">
 	  <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
-    <skos:prefLabel xml:lang="fr">{{ feat.name }}</skos:prefLabel>
-    <skos:prefLabel xml:lang="en">{{ feat.name }}</skos:prefLabel>
-	  <skos:scopeNote xml:lang="fr">{{ feat.description }}</skos:scopeNote>
-	  <skos:scopeNote xml:lang="en">{{ feat.description }}</skos:scopeNote>
+    <skos:prefLabel xml:lang="fr">{{ feat.id }} {{ feat.name | escape }}</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">{{ feat.id }} {{ feat.name | escape }}</skos:prefLabel>
+	  <skos:scopeNote xml:lang="fr">{{ feat.description | escape }}</skos:scopeNote>
+	  <skos:scopeNote xml:lang="en">{{ feat.description | escape }}</skos:scopeNote>
   </skos:Concept>
   {% endfor %}
 </rdf:RDF>
