@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OGRVRTDataSource>
+  <OGRVRTLayer name="region">
+    <SrcDataSource>WFS:https://data.geopf.fr/wfs</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT nom_officiel AS nom, code_insee AS id, 'Région' AS admin_type, 'REG_' AS skos_prefix, '12,30,65,11,81,46,82,09,48,34,66,32,31' AS narrower_ids, 'DEP_' AS narrower_prefix, Envelope(Transform(geometrie,4326)) AS geom FROM "ADMINEXPRESS-COG-CARTO.LATEST:region" WHERE code_insee='76'</SrcSql>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="id" width="5"/>
+    <Field name="name" type="String" src="nom" width="80"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+    <Field name="narrower_prefix" type="String" src="narrower_prefix" width="10"/>
+    <Field name="narrower_ids" type="String" src="narrower_ids" width="80"/>
+  </OGRVRTLayer>
+  <OGRVRTLayer name="departement">
+    <SrcDataSource>WFS:https://data.geopf.fr/wfs</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT code_insee AS id, nom_officiel AS nom, 'Département' AS admin_type, 'DEP_' AS skos_prefix, '76' AS broader_ids, 'REG_' AS broader_prefix, Envelope(Transform(geometrie,4326)) AS geom FROM "ADMINEXPRESS-COG-CARTO.LATEST:departement" WHERE code_insee_de_la_region='76'</SrcSql>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="id"/>
+    <Field name="name" type="String" src="nom"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+    <Field name="broader_prefix" type="String" src="broader_prefix" width="10"/>
+    <Field name="broader_ids" type="String" src="broader_ids" width="80"/>
+  </OGRVRTLayer>
+  <OGRVRTLayer name="epci">
+    <SrcDataSource relativeToVRT="0" shared="1">WFS:https://data.geopf.fr/wfs</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT code_siren AS id, nom_officiel AS nom, 'EPCI' AS admin_type, 'EPCI_' AS skos_prefix, Envelope(Transform(geometrie,4326)) AS geom FROM "ADMINEXPRESS-COG-CARTO.LATEST:epci" where codes_insee_des_departements_membres IN ('12','30','65','11','81','46','82','09','48','34','66','32','31')</SrcSql>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="id"/>
+    <Field name="name" type="String" src="nom"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+  </OGRVRTLayer>
+  <OGRVRTLayer name="communes">
+    <SrcDataSource relativeToVRT="0" shared="1">WFS:https://data.geopf.fr/wfs</SrcDataSource>
+    <SrcSql dialect="sqlite">SELECT code_insee AS id, nom_officiel AS nom, 'Commune' AS admin_type, 'COM_' AS skos_prefix, substr(code_insee,1, 2) AS broader_ids, 'DEP_' AS broader_prefix, Envelope(Transform(geometrie,4326)) AS geom FROM "ADMINEXPRESS-COG-CARTO.LATEST:commune" where code_insee_de_la_region='76'</SrcSql>
+    <LayerSRS>EPSG:4326</LayerSRS>
+    <Field name="id" type="String" src="id"/>
+    <Field name="name" type="String" src="nom"/>
+    <Field name="admin_type" type="String" src="admin_type" width="20"/>
+    <Field name="skos_prefix" type="String" src="skos_prefix" width="10"/>
+    <Field name="broader_prefix" type="String" src="broader_prefix" width="10"/>
+    <Field name="broader_ids" type="String" src="broader_ids" width="80"/>
+  </OGRVRTLayer>
+</OGRVRTDataSource>
